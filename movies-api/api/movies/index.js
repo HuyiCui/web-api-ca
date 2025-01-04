@@ -62,6 +62,12 @@ router.get('/tmdb/:id/recommendations', asyncHandler(async (req, res) => {
     res.status(200).json(recommendMovies);
 }));
 
+router.get('/tmdb/:id/movie', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+    const movie = await getMovie(id);
+    res.status(200).json(movie);
+}));
+
 router.get('/tmdb/:id/images', asyncHandler(async (req, res) => {
     const { id } = req.params;
     const movieImages = await getMovieImages(id);

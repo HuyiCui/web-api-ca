@@ -1,6 +1,6 @@
 export const getMovies = () => {
   return fetch(
-    `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&include_adult=false&include_video=false&page=1`
+    `http://localhost:8080/api/movies`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -15,11 +15,10 @@ export const getMovies = () => {
 };
   
 export const getMovie = (args) => {
-  //console.log(args)
   const [, idPart] = args.queryKey;
   const { id } = idPart;
   return fetch(
-    `https://api.themoviedb.org/3/movie/${id}?api_key=${process.env.REACT_APP_TMDB_KEY}`
+    `http://localhost:8080/api/movies/tmdb/${id}/movie`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -35,9 +34,7 @@ export const getMovie = (args) => {
   
   export const getGenres = () => {
     return fetch(
-      "https://api.themoviedb.org/3/genre/movie/list?api_key=" +
-        process.env.REACT_APP_TMDB_KEY +
-        "&language=en-US"
+      "http://localhost:8080/api/movies/tmdb/genres"
     ).then( (response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -53,9 +50,7 @@ export const getMovie = (args) => {
 
   export const getLanguages = () => {
     return fetch(
-      "https://api.themoviedb.org/3/configuration/languages?api_key=" +
-        process.env.REACT_APP_TMDB_KEY +
-        "&language=en-US"
+      "http://localhost:8080/api/movies/tmdb/languages"
     ).then( (response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -73,7 +68,7 @@ export const getMovie = (args) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/images?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      `http://localhost:8080/api/movies/tmdb/${id}/images`
     ).then( (response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -91,7 +86,7 @@ export const getMovie = (args) => {
     const [, idPart] = queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/reviews?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      `http://localhost:8080/api/movies/tmdb/${id}/reviews`
     ).then( (response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -107,7 +102,7 @@ export const getMovie = (args) => {
 
   export const getUpcomingMovies = () => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/upcoming?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+      `http://localhost:8080/api/movies/tmdb/upcoming`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -123,7 +118,7 @@ export const getMovie = (args) => {
 
   export const getNowPlayingMovies = () => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/now_playing?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+      `http://localhost:8080/api/movies/tmdb/nowplaying`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -139,7 +134,7 @@ export const getMovie = (args) => {
 
   export const getPopularity = () => {
     return fetch(
-      `https://api.themoviedb.org/3/movie/popular?api_key=${process.env.REACT_APP_TMDB_KEY}&language=en-US&page=1`
+      `http://localhost:8080/api/movies/tmdb/popular`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -157,7 +152,7 @@ export const getMovie = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/similar?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      `http://localhost:8080/api/movies/tmdb/${id}/similar`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
@@ -175,7 +170,7 @@ export const getMovie = (args) => {
     const [, idPart] = args.queryKey;
     const { id } = idPart;
     return fetch(
-      `https://api.themoviedb.org/3/movie/${id}/recommendations?api_key=${process.env.REACT_APP_TMDB_KEY}`
+      `http://localhost:8080/api/movies/tmdb/${id}/recommendations`
     ).then((response) => {
       if (!response.ok) {
         return response.json().then((error) => {
