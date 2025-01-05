@@ -2,6 +2,7 @@ import express from 'express';
 import User from './userModel';
 import asyncHandler from 'express-async-handler';
 import jwt from 'jsonwebtoken';
+import Favourite from "../favourites/favouriteModel";
 
 const router = express.Router(); // eslint-disable-line
 
@@ -71,5 +72,35 @@ async function authenticateUser(req, res) {
         res.status(401).json({ success: false, msg: 'Wrong password.' });
     }
 }
+
+router.post('/:id/favourites', asyncHandler(async (req, res) => {
+    const { id } = req.params; // 用户ID
+    const { movieId } = req.body; // 电影ID
+
+    if (!id || !movieId) {
+        return res.status(400).json({ success: false, msg: "User ID and Movie ID are required." });
+    }
+
+    const existingFavourite = await Favourite.findOne({ userId: id, movieId });
+    if (existingFavourite) {
+        return res.status(400).json({ success: false, msg: "Movie is already in favourites." });
+    }
+
+    const favourite = new Favourite({ userId: id, movieId });
+    await favourite.save();
+
+    res.status(201).json({ success: true, msg: "Movie added to favourites!" });
+}));
+
+router.get('/:id/favourites', asyncHandler(async (req, res) => {
+    const { id } = req.params;
+
+    if (!id) {
+        return res.status(400).json({ success: false, msg: "User ID is required." });
+    }
+
+    const favourites = await Favourite.find({ userId: id });
+    res.status(200).json({ success: true, favourites });
+}));
 
 export default router;

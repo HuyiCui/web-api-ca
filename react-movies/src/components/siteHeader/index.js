@@ -13,21 +13,18 @@ import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { AuthContext } from "../../contexts/authContext";
 
-// 利用 MUI 提供的 mixins 创建一个用于占位的组件，避免被 AppBar 覆盖
 const Offset = styled("div")(({ theme }) => theme.mixins.toolbar);
 
 const SiteHeader = () => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
-  // 从 AuthContext 获取登录状态和操作方法
   const context = useContext(AuthContext);
 
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
   const navigate = useNavigate();
 
-  // 导航菜单选项：可随需要增删
   const menuOptions = [
     { label: "Home", path: "/" },
     { label: "Favorites", path: "/movies/favorites" },
@@ -38,14 +35,13 @@ const SiteHeader = () => {
 
   const handleMenuSelect = (pageURL) => {
     navigate(pageURL, { replace: true });
-    setAnchorEl(null); // 点击后关闭菜单
+    setAnchorEl(null); 
   };
 
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
 
-  // 登录 / 登出 相关按钮
   const AuthButtons = () => {
     if (context.isAuthenticated) {
       return (
@@ -71,19 +67,15 @@ const SiteHeader = () => {
     <>
       <AppBar position="fixed" color="primary">
         <Toolbar>
-          {/* 左侧标题 */}
           <Typography variant="h4" sx={{ flexGrow: 1 }}>
             TMDB Client
           </Typography>
 
-          {/* 另一段说明文字 */}
           <Typography variant="h6" sx={{ flexGrow: 1 }}>
             All you ever wanted to know about Movies!
           </Typography>
 
-          {/* 导航菜单 + 登录状态 */}
           {isMobile ? (
-            // 如果是移动端，使用汉堡菜单
             <>
               <IconButton
                 aria-label="menu"
@@ -109,7 +101,6 @@ const SiteHeader = () => {
                 open={open}
                 onClose={() => setAnchorEl(null)}
               >
-                {/* 移动端菜单项 */}
                 {menuOptions.map((opt) => (
                   <MenuItem
                     key={opt.label}
@@ -118,7 +109,6 @@ const SiteHeader = () => {
                     {opt.label}
                   </MenuItem>
                 ))}
-                {/* 分隔符后放登录/登出功能 */}
                 <MenuItem disabled divider />
                 <MenuItem
                   onClick={() => {
@@ -133,7 +123,6 @@ const SiteHeader = () => {
               </Menu>
             </>
           ) : (
-            // 如果是桌面端，则显示为 Button
             <>
               {menuOptions.map((opt) => (
                 <Button
@@ -144,14 +133,12 @@ const SiteHeader = () => {
                   {opt.label}
                 </Button>
               ))}
-              {/* 右侧的登录/登出按钮 */}
               <AuthButtons />
             </>
           )}
         </Toolbar>
       </AppBar>
 
-      {/* 占位以避免内容被固定定位的 AppBar 遮挡 */}
       <Offset />
     </>
   );
