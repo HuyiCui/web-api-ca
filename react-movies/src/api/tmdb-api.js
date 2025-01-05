@@ -205,3 +205,21 @@ export const signup = async (username, password) => {
     });
     return response.json();
 };
+
+export const getFavouriteMovie = (args) => {
+  const [, idPart] = args.queryKey;
+  const { id } = idPart;
+  return fetch(
+    `http://localhost:8080/api/users/${id}/favourites`
+  ).then((response) => {
+    if (!response.ok) {
+      return response.json().then((error) => {
+        throw new Error(error.status_message || "Something went wrong");
+      });
+    }
+    return response.json();
+  })
+  .catch((error) => {
+    throw error
+ });
+};

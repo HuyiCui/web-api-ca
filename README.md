@@ -4,50 +4,63 @@ Name: Huyi Cui
 
 ## Features.
 
-A bullet-point list of the ADDITIONAL features you have implemented in the API **THAT WERE NOT IN THE LABS** (or modifications to existing features)
- 
- + Feature 1 
- + Feature 2 
- + Feature 3 
- + etc
+ + Login Functionality
+ + Registration Function
+ + Protect data and make it inaccessible before logging in 
+ + Use custom API to replace TMDB API
 
 ## Setup requirements.
 
-[ Outline any non-standard setup steps necessary to run your app locally after cloning the repo.]
+After opening the file in VS Code, open a console and enter the npm install command. After downloading, enter the npm run dev command in the movies-api folder to start the api, and enter the npm start command in the react-movies file to start the front-end page. Please make sure to start the api before starting the front-end page, otherwise no data will be obtained on the page.
 
 ## API Configuration
 
-Describe any configuration that needs to take place before running the API. For example, creating an `.env` file and what variables to put in it. Give an example of how this might be done.
+Enter the following content in the .env file:
 
-REMEMBER: DON'T PUT YOUR OWN USERNAMES/PASSWORDS/AUTH KEYS IN THE README OR ON GITHUB, just placeholders as indicated below:
-
-______________________
-NODEENV=development
+NODE_ENV=production
 PORT=8080
-HOST=
-mongoDB=YourMongoURL
-seedDb=true
-secret=YourJWTSecret
-______________________
+HOST=localhost
+MONGO_DB=Your_Mongo_URL
+TMDB_KEY=Your_TMDB_KEY
+SECRET=Your_Secret_Key
+
+NODE_ENV=production: Specifies that the current environment of the application is production.
+PORT=8080: Indicates the port number that the application listens on. When the application starts, it will accept network requests on this port.
+HOST=localhost: Indicates the host name or IP address where the application is running.
+MONGO_DB=Your_Mongo_URL: Indicates the connection string of the MongoDB database. After reading this variable in the application, the corresponding connection URL will be used to access MongoDB. If you want to deploy in different environments, you need to set different MongoDB URLs to prevent mutual interference.
+TMDB_KEY=Your_TMDB_KEY: Indicates the key for obtaining API data from TMDB (The Movie Database).
+SECRET=Your_Secret_Key: A common usage is to use this value as the encryption or signing key for the application
 
 ## API Design
-Give an overview of your web API design, perhaps similar to the following: 
 
 - /api/movies | GET | Gets a list of movies 
 - /api/movies/{movieid} | GET | Gets a single movie 
-- /api/movies/{movieid}/reviews | GET | Get all reviews for movie 
-- /api/movies/{movieid}/reviews | POST | Create a new review for Movie 
+- /api/movies/tmdb/genres | GET | Get the movies' genres 
+- /api/movies/tmdb/languages | GET | Get the movies' languages 
+- /api/movies/tmdb/upcoming | GET | Gets a list of upcoming movies 
+- /api/movies/tmdb/nowplaying | GET | Gets a list of nowplaying movies 
+- /api/movies/tmdb/popular | GET | Gets a list of now popular movies 
+- /api/movies/tmdb/{movieid}/similar | GET | Get similar movies to a specific movie 
+- /api/movies/tmdb/{movieid}/recommendations | GET | Get similar movies to a specific movie 
+- /api/movies/tmdb/{movieid}/movie | GET | Get recommendated movies to a specific movie 
+- /api/movies/tmdb/{movieid}/images | GET | Get images to a specific movie 
+- /api/movies/tmdb/{movieid}/reviews | GET | Get reviews to a specific movie 
 
-If you have your API design on an online platform or graphic, please link to it (e.g. [Swaggerhub](https://app.swaggerhub.com/)).
+- /api/users | GET | Gets a list of users 
+- /api/users | POST | Register(Create)/Authenticate User
+- /api/users/{userid} | PUT | Update a user
+- /api/users/{userid}/favourites | POST | Gets a list of a sepcific user's favourite movies
+- /api/users/{userid}/favourites | GET | Add a movie to a sepcific user's favourite movies list
+
 
 ## Security and Authentication
+Login registration through the users API and protect the page so that it cannot be viewed when not logged in
+![alt text](image-8.png)
 
-Give details of authentication/security implemented on the API (e.g. passport/sessions). Indicate which routes are protected.
 
 ## Integrating with React App
 
-Describe how you integrated your React app with the API. List the views that use your Web API instead of the TMDB API. Describe any other updates to the React app from Assignment One.
+First, I created several new APIs in the api, including /api/movies/tmdb/languages, /api/movies/tmdb/upcoming, /api/movies/tmdb/nowplaying, /api/movies/tmdb/popular, /api/movies/tmdb/{movieid}/similar, /api/movies/tmdb/{movieid}/recommendations, /api/movies/tmdb/{movieid}/movie, /api/movies/tmdb/{movieid}/images, and /api/movies/tmdb/{movieid}/reviews, to replace the original TMDB API to display information.
+![alt text](image-7.png)
+![](image.png)![alt text](image-1.png)![alt text](image-2.png)![alt text](image-3.png)![alt text](image-4.png)![alt text](image-5.png)![alt text](image-6.png)
 
-## Independent learning (if relevant)
-
-Briefly explain any non-standard features developed for the app.   
